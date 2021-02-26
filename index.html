@@ -1,1 +1,37 @@
-<!DOCTYPE html><html><head><script type='text/javascript'>!function(i){var flag='indexRedirect';if(i.search){var a={};i.search.slice(1).split('&').forEach(function(i){var l=i.split('=');a[l[0]]=l.slice(1).join('=').replace(/~and~/g,'&')}),void 0!==a.p&&window.history.replaceState(null,null,i.pathname.slice(0,-1)+(a.p||'')+(a.q?'?'+a.q:'')+i.hash)}}(window.location)</script><meta charset=utf-8><title>mysite</title><link href=/static/css/app.dfca11727ccf9e74f393b0c223db19ce.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.78879c4f54ed0450b907.js></script><script type=text/javascript src=/static/js/vendor.448f2d15e3f6731dd22b.js></script><script type=text/javascript src=/static/js/app.9e847dae1bebfa8e1762.js></script></body></html>
+---
+layout: default
+title: Home
+---
+
+<div class="posts">
+  {% for post in paginator.posts %}
+  <div class="post">
+    <h1 class="post-title">
+      <a href="{{ post.url | absolute_url }}">
+        {{ post.title }}
+      </a>
+    </h1>
+
+    <span class="post-date">{{ post.date | date_to_string }}</span>
+
+    {{ post.content }}
+  </div>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if paginator.next_page %}
+    <a class="pagination-item older" href="{{ paginator.next_page_path | absolute_url }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if paginator.previous_page %}
+    {% if paginator.page == 2 %}
+      <a class="pagination-item newer" href="{{ '/' | absolute_url }}">Newer</a>
+    {% else %}
+      <a class="pagination-item newer" href="{{ paginator.previous_page_path | absolute_url }}">Newer</a>
+    {% endif %}
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
